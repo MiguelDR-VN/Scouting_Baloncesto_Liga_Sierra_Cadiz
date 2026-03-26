@@ -20,7 +20,7 @@ def limpiar_nombres_columnas(df):
     # Primero quitamos espacios en blanco de los nombres de columnas
     df.columns = [str(c).strip() for c in df.columns]
 
-    # Mapeo de nombres para evitar los .1, .2 que pone Pandas
+    # Mapear los nombres
     mapeo = {
         'A/I': 'T2_anotados_intentados',
         '%': 'T2_porcentaje',
@@ -123,7 +123,7 @@ def buscar_stats_equipo_en_archivos(nombre_equipo, carpeta_data="data/"):
 
                     df = df.dropna(subset=['Nombre'])
 
-                    # Llamamos a tu función de limpieza
+                    # Llamamos a la función de limpieza
                     from data_utils import limpiar_nombres_columnas
                     df = limpiar_nombres_columnas(df)
                     df['Partido_Origen'] = archivo

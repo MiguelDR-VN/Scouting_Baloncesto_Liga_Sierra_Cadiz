@@ -7,20 +7,20 @@ from scout_agent import scout_app, llm
 st.set_page_config(page_title="Scouting AI", page_icon="🏀", layout="wide")
 
 st.title("🏀 Asistente de Scouting Inteligente")
-st.markdown("Sube tus Excels a la carpeta `data/` y deja que la IA prepare el partido.")
+st.markdown("Deja que la IA prepare tu partido.")
 
 # --- MENÚ LATERAL ---
 modo = st.sidebar.radio("Selecciona el tipo de análisis:", ["👤 Análisis de Jugador", "🛡️ Scouting de Rival"])
 
 st.sidebar.markdown("---")
-st.sidebar.info("Desarrollado para automatizar la lectura de actas de la Federación.")
+st.sidebar.info("Desarrollado para automatizar la lectura de actas de la Liga de la Sierra de Cádiz.")
 
 # ==========================================
 # MODO 1: JUGADOR INDIVIDUAL
 # ==========================================
 if modo == "👤 Análisis de Jugador":
     st.header("Análisis Histórico de Jugador")
-    nombre_jugador = st.text_input("Introduce apellidos, nombre del jugador (ej: Martin Verdugo, Rafael):")
+    nombre_jugador = st.text_input("Introduce apellidos, nombre del jugador (ej: Cornejo Santalla, Hugo):")
 
     if st.button("Generar Informe del Jugador"):
         if nombre_jugador:
@@ -50,7 +50,7 @@ if modo == "👤 Análisis de Jugador":
 # ==========================================
 elif modo == "🛡️ Scouting de Rival":
     st.header("Plan de Partido: Próximo Rival")
-    nombre_equipo = st.text_input("Introduce el nombre del equipo rival (ej. Pradoubri):")
+    nombre_equipo = st.text_input("Introduce el nombre del equipo rival (ej. Olvera 2):")
 
     if st.button("Generar Plan de Partido"):
         if nombre_equipo:
@@ -60,7 +60,7 @@ elif modo == "🛡️ Scouting de Rival":
                 if df_rival is None or df_rival.empty:
                     st.error(f"No se han encontrado datos para el equipo: {nombre_equipo}")
                 else:
-                    # Limpieza de datos (igual que hacíamos en main.py)
+                    # Limpieza de datos
                     df_rival['PTS'] = pd.to_numeric(df_rival['PTS'], errors='coerce')
                     df_rival['Valoracion'] = pd.to_numeric(df_rival['Valoracion'], errors='coerce')
 
@@ -70,7 +70,7 @@ elif modo == "🛡️ Scouting de Rival":
                         'Valoracion': 'mean'
                     }).sort_values(by='Valoracion', ascending=False).head(5)
 
-                    # Prompt para Llama/Gemini
+                    # Prompt para Gemini
                     prompt = f"""
                     Actúa como el entrenador jefe. Jugamos contra {nombre_equipo}.
                     Aquí tienes el TOP 5 de sus mejores jugadores y sus medias (Puntos y Valoración):

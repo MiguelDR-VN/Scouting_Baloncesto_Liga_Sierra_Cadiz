@@ -3,13 +3,13 @@ from dotenv import load_dotenv
 from typing import TypedDict, Annotated, List
 from langgraph.graph import StateGraph, END
 from langchain_google_genai import ChatGoogleGenerativeAI
-from data_utils import obtener_stats_jugador  # Tu función de limpieza
+from data_utils import obtener_stats_jugador
 from langchain_groq import ChatGroq
-# Cambia la línea de import de data_utils por esta:
 from data_utils import obtener_historial_jugador
 
 load_dotenv()
 
+# LLM de Llama
 """llm = ChatGroq(
     model="llama-3.3-70b-versatile",
     temperature=0,
@@ -29,11 +29,11 @@ class AgentState(TypedDict):
     analisis_tactico: str
 
 
-# 2. Nodo 1: El Buscador (Usa Python para sacar los datos)
+# 2. Nodo 1: El Buscador (saca los datos)
 def buscador_datos_node(state: AgentState):
     print(f"--- BUSCANDO HISTORIAL GLOBAL DE {state['nombre_jugador'].upper()} ---")
 
-    # ¡Aquí está la magia! Ya no le pasamos un archivo fijo, escanea toda la carpeta
+    # Escanea toda la carpeta
     datos_globales = obtener_historial_jugador(state['nombre_jugador'])
 
     return {"datos_crudos": datos_globales}

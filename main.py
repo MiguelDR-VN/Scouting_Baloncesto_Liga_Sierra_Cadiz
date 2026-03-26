@@ -27,13 +27,10 @@ async def get_rival_report(nombre_equipo: str):
     if df_rival is None:
         return {"error": f"No hay datos de {nombre_equipo}"}
 
-    # --- AQUÍ ESTÁ EL TRUCO ---
     # Convertimos a número. 'errors=coerce' convierte los errores (como un "-") en NaN (vacío)
     df_rival['PTS'] = pd.to_numeric(df_rival['PTS'], errors='coerce')
     df_rival['Valoracion'] = pd.to_numeric(df_rival['Valoracion'], errors='coerce')
-    # ---------------------------
 
-    # Ahora el groupby ya no fallará
     resumen = df_rival.groupby('Nombre').agg({
         'PTS': 'mean',
         'Valoracion': 'mean'
