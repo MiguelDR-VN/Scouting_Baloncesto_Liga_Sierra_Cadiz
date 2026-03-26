@@ -3,6 +3,20 @@ import pandas as pd
 from data_utils import obtener_historial_jugador, buscar_stats_equipo_en_archivos
 from scout_agent import scout_app, llm
 
+
+@st.cache_data(ttl=3600) # Guarda la memoria durante 1 hora
+def obtener_datos_jugador_memoria(nombre):
+    # Llama a LangGraph
+    inputs = {"nombre_jugador": nombre}
+    config = {"configurable": {"thread_id": "1"}}
+    return scout_app.invoke(inputs, config)
+
+@st.cache_data(ttl=3600)
+def obtener_datos_rival_memoria(nombre_equipo):
+    return buscar_stats_equipo_en_archivos(nombre_equipo)
+
+
+
 # --- CONFIGURACIÓN DE LA PÁGINA ---
 st.set_page_config(page_title="Scouting AI", page_icon="🏀", layout="wide")
 
