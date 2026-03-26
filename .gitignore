@@ -1,0 +1,9 @@
+.env
+
+# Archivos de pruebas que no quiero en producción
+test_gemini.py
+test_parser.py
+
+venv/
+__pycache__/
+.DS_Store

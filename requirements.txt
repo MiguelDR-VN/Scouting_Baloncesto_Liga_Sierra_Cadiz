@@ -1,0 +1,7 @@
+streamlit
+pandas
+openpyxl
+langchain-groq
+langchain-google-genai
+langgraph
+python-dotenv
