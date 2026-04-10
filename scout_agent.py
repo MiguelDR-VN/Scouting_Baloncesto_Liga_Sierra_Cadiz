@@ -10,7 +10,6 @@ from data_utils import obtener_historial_jugador
 load_dotenv()
 
 # LLM de Llama
-
 #llm = ChatGroq(
  #   model="llama-3.3-70b-versatile",
   #  temperature=0,

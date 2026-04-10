@@ -20,7 +20,7 @@ def obtener_datos_rival_memoria(nombre_equipo):
 # --- CONFIGURACIÓN DE LA PÁGINA ---
 st.set_page_config(page_title="Scouting AI", page_icon="🏀", layout="wide")
 
-st.title("🏀 Asistente de Scouting Inteligente")
+st.title("🏀 Asistente de Scouting Inteligente - Liga Sierra de Cádiz")
 st.markdown("Deja que la IA prepare tu partido.")
 
 # --- MENÚ LATERAL ---

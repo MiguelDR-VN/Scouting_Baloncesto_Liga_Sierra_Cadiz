@@ -149,7 +149,7 @@ def obtener_historial_jugador(nombre_buscado, carpeta_data="data/"):
 
     for archivo in archivos:
         path = os.path.join(carpeta_data, archivo)
-        # Reutilizamos tu función que busca en un solo archivo
+        # Función que busca en un solo archivo
         stats_partido = obtener_stats_jugador(nombre_buscado, path)
 
         if stats_partido:
