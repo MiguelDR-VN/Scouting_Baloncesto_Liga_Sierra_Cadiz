@@ -10,19 +10,19 @@ from data_utils import obtener_historial_jugador
 load_dotenv()
 
 # LLM de Llama
-#llm = ChatGroq(
- #   model="llama-3.3-70b-versatile",
-  #  temperature=0,
-   # api_key=os.getenv("GROQ_API_KEY")
-#)
-
-
-
-llm = ChatGoogleGenerativeAI(
-    model="models/gemini-2.5-flash",
-    temperature=0.5,
-    api_key=os.getenv("GEMINI_API_KEY")
+llm = ChatGroq(
+    model="llama-3.3-70b-versatile",
+    temperature=0,
+    api_key=os.getenv("GROQ_API_KEY")
 )
+
+
+
+#llm = ChatGoogleGenerativeAI(
+ #   model="models/gemini-2.5-flash",
+  #  temperature=0.5,
+   # api_key=os.getenv("GEMINI_API_KEY")
+#)
 
 # 1. Definimos el "Estado" del agente (qué info lleva encima)
 class AgentState(TypedDict):
