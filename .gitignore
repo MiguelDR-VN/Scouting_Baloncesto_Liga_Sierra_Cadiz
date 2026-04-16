@@ -3,6 +3,8 @@
 # Archivos de pruebas que no quiero en producción
 test_gemini.py
 test_parser.py
+scouting.db
+init_db.py
 
 venv/
 __pycache__/

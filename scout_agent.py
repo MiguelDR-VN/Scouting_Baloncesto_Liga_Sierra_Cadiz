@@ -17,54 +17,54 @@ llm = ChatGroq(
 )
 
 
+"""# LLM de Google
+llm = ChatGoogleGenerativeAI(
+    model="models/gemini-2.5-flash",
+    temperature=0.5,
+    api_key=os.getenv("GEMINI_API_KEY")
+)"""
 
-#llm = ChatGoogleGenerativeAI(
- #   model="models/gemini-2.5-flash",
-  #  temperature=0.5,
-   # api_key=os.getenv("GEMINI_API_KEY")
-#)
-
-# 1. Definimos el "Estado" del agente (qué info lleva encima)
+# 1. Definimos el "Estado" del agente
 class AgentState(TypedDict):
     nombre_jugador: str
-    datos_crudos: dict
+    datos_crudos: list
     analisis_tactico: str
 
 
-# 2. Nodo 1: El Buscador (saca los datos)
+# 2. Nodo 1: El Buscador (consulta la BBDD)
 def buscador_datos_node(state: AgentState):
-    print(f"--- BUSCANDO HISTORIAL GLOBAL DE {state['nombre_jugador'].upper()} ---")
+    print(f"--- CONSULTANDO BBDD: HISTORIAL DE {state['nombre_jugador'].upper()} ---")
 
-    # Escanea toda la carpeta
-    datos_globales = obtener_historial_jugador(state['nombre_jugador'])
+    # escanea el .db
+    datos_db = obtener_historial_jugador(state['nombre_jugador'])
 
-    return {"datos_crudos": datos_globales}
+    return {"datos_crudos": datos_db}
 
 
-# 3. Nodo 2: El Analista (Usa Gemini para razonar)
+# 3. Nodo 2: El Analista
 def analista_gemini_node(state: AgentState):
     if not state['datos_crudos']:
-        return {"analisis_tactico": "No se encontraron datos de este jugador en ningún partido."}
+        return {"analisis_tactico": f"No hay registros en la base de datos para {state['nombre_jugador']}."}
 
-    # Cambiamos las instrucciones para un análisis global
+    # Convertimos a texto para el prompt
     prompt = f"""
-    Eres el Director Deportivo y analista principal de un equipo de baloncesto. 
-    Aquí tienes el historial completo de estadísticas del jugador {state['nombre_jugador']} a lo largo de varios partidos esta temporada:
+    Eres el Director Deportivo. Analiza el historial de {state['nombre_jugador']} basado en estos datos de la base de datos:
 
     {state['datos_crudos']}
 
-    Analiza su rendimiento global en todos estos partidos y redacta un informe de scouting detallado.
-    Tu informe debe contener:
-    1. Perfil del jugador: ¿En qué destaca de forma consistente? (Ej: es un gran reboteador, tirador fiable, etc.)
-    2. Puntos débiles: ¿Qué estadística le lastra partido tras partido?
-    3. Evolución: ¿Es un jugador regular o sus números cambian mucho de un partido a otro?
-    4. Plan de mejora: Un consejo táctico general enfocado a sus entrenamientos.
+    Genera un informe profesional que incluya:
+    1. Perfil Consistente: ¿Qué hace bien siempre?
+    2. Puntos Críticos: ¿Qué falla en sus peores partidos?
+    3. Análisis de Regularidad: ¿Sus estadísticas son estables o montaña rusa?
+    4. Plan de Trabajo: Un consejo táctico para su próximo entrenamiento.
+    5. ¿Cómo defenderlo?: Pautas para poder parar a ese jugador 
     """
+
     respuesta = llm.invoke(prompt)
     return {"analisis_tactico": respuesta.content}
 
 
-# 4. Construcción del Grafo
+# 4. Construcción del Grafo (Se mantiene igual, la estructura es sólida)
 workflow = StateGraph(AgentState)
 
 workflow.add_node("buscador", buscador_datos_node)
@@ -74,5 +74,4 @@ workflow.set_entry_point("buscador")
 workflow.add_edge("buscador", "analista")
 workflow.add_edge("analista", END)
 
-# Compilamos el flujo
 scout_app = workflow.compile()

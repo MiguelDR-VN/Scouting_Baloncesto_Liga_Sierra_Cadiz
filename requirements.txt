@@ -5,3 +5,4 @@ langchain-groq
 langchain-google-genai
 langgraph
 python-dotenv
+plotly==5.20.0
