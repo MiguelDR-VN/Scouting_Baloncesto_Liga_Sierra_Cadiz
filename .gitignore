@@ -1,4 +1,7 @@
 .env
+.streamlit/secrets.toml
+
+.idea/
 
 # Archivos de pruebas que no quiero en producción
 test_gemini.py
