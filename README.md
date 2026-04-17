@@ -1,6 +1,6 @@
 # 🏀 Asistente de Scouting AI - Liga Sierra de Cádiz
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](TU_ENLACE_A_STREAMLIT_CLOUD)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://scoutingbaloncestoligasierracadiz.streamlit.app/)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
 
 Una aplicación web interactiva diseñada para automatizar el análisis táctico y estadístico de los partidos de baloncesto de la Liga de la Sierra de Cádiz. Transforma las actas en formato Excel en informes visuales e inteligencia táctica generada por IA.
