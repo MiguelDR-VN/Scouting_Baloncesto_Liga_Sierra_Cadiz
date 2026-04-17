@@ -187,7 +187,7 @@ def obtener_jugadores_equipo(equipo):
 
         # 3. Truco maestro: Nos quedamos solo con la primera fila de cada jugador
         # (que corresponde al dorsal que más ha usado) y descartamos el resto
-        df_final = conteos.drop_duplicates(subset=['Nombre'], keep='first')
+        df_final = conteos.drop_duplicates(subset=['Nombre'], keep='first').copy()
         # ---------------------------------------
 
         # 4. Limpiamos y ordenamos por dorsal para que el menú quede bonito

@@ -32,14 +32,9 @@ if modo == "👤 Análisis de Jugador":
     st.header("Análisis Histórico de Jugador")
 
     # --- NUEVA ESTRUCTURA DE PESTAÑAS ---
-    tab_busqueda, tab_directorio = st.tabs(["🔍 Búsqueda Manual", "📋 Explorador por Equipos"])
+    tab_directorio, tab_busqueda = st.tabs(["📋 Explorador por Equipos", "🔍 Búsqueda Manual"])
 
     nombre_jugador = None
-
-    with tab_busqueda:
-        nombre_input = st.text_input("Introduce Apellidos, Nombre (ej: CORNEJO SANTALLA, HUGO):", key="input_manual")
-        if nombre_input:
-            nombre_jugador = nombre_input
 
     with tab_directorio:
         col1, col2 = st.columns(2)
@@ -54,6 +49,12 @@ if modo == "👤 Análisis de Jugador":
                 if jugador_sel != "-":
                     # Extraemos el nombre quitando el dorsal (ej: "10 - NOMBRE" -> "NOMBRE")
                     nombre_jugador = jugador_sel.split(" - ")[1]
+
+
+    with tab_busqueda:
+        nombre_input = st.text_input("Introduce Apellidos, Nombre (ej: CORNEJO SANTALLA, HUGO):", key="input_manual")
+        if nombre_input:
+            nombre_jugador = nombre_input
 
     # --- LÓGICA DE GENERACIÓN DE INFORME ---
     if nombre_jugador:
