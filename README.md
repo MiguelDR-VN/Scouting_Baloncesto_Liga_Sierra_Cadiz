@@ -28,3 +28,8 @@ Una aplicación web interactiva diseñada para automatizar el análisis táctico
 
 Puedes probar la aplicación en vivo directamente desde tu navegador sin instalar nada:
 👉 **[Enlace de la Demo](https://scoutingbaloncestoligasierracadiz.streamlit.app/)**
+
+## 🔌 API REST (Backend Independiente)
+
+El proyecto incluye un servidor **FastAPI** independiente (ubicado en `api/main.py`) que expone los datos de scouting a través de endpoints RESTful. 
+Esto permite que otros sistemas (como aplicaciones móviles u otros frontends en React/Vue) puedan consumir las estadísticas de la liga de forma programática.
